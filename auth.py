@@ -30,7 +30,7 @@ def register_user(username, password):
     if os.path.exists(USER_DATA_FILE):
         with open(USER_DATA_FILE, "r") as f:
             for line in f:
-                username_exist = line.strip().split(",")[0]
+                username_exist = line.strip().split(",")[0].replace("Name:","")
                 if username_exist == username:
                     return False
     hashed_password = hash_password(password)
@@ -45,10 +45,9 @@ def user_exists(username):
         return False
     with open(USER_DATA_FILE, "r") as f:
         for line in f:
-            username_exist = line.strip().split(",")[0]
+            username_exist = line.strip().split(",")[0].replace("Name:","")
             if username_exist == username:
-                
-                return False
+                return True
     return False
 
 
