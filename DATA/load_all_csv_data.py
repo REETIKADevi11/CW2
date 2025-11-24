@@ -2,7 +2,6 @@ import pandas as pd
 import sqlite3
 import os
 from app.data.db import connect_database
-from app.data.schema import create_cyber_incident_table
 
 def load_csv_to_table(conn, csv_path, table_name):
 
@@ -16,7 +15,7 @@ def load_csv_to_table(conn, csv_path, table_name):
        df.to_sql(name = table_name, con = conn, if_exists = 'append', index = False)
        print("Well Done! You have successfully load the datasets_metadata csv")
     elif not os.path.exists(csv_path= "it_ticket.csv"):
-       df = pd.read_csv("it_ticket.csv")
+       df = pd.read_csv("it_tickets.csv")
        df.to_sql(name = table_name, con = conn, if_exists = 'append', index = False)
        print("Well Done! You have successfully load the it_ticket csv")
        
