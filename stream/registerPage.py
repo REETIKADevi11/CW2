@@ -1,6 +1,6 @@
 import streamlit as st
 from auth import validate_password, validate_username
-from stream.dashboard import Dash, metaDash
+from stream.dashboard import Dash, metaDash, ticketDash
 from PIL import Image
 from auth import register_user
 
@@ -42,7 +42,15 @@ if not st.session_state.registering:
     
 
 if st.session_state.registering == True:
-    st.selectbox("Dashboard", Dash(), metaDash())
+    option = ["Cyber Dashboard","Dataset dashboard", "IT ticket"]
+    st.header ("Select dashboard: ")
+    dash_select = st.selectbox("Which dashboard would you like to access", options = option)
+    if dash_select == "Cyber Dashboard":
+       Dash()
+    elif dash_select == "Dataset dashboard":
+       metaDash()
+    elif dash_select == "IT ticket":
+       ticketDash()
 
     
 
