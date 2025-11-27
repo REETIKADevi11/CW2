@@ -1,12 +1,8 @@
 import bcrypt
 import os
 import re
-    
 
-USER_DATA_FILE = "users.txt"
-with open (USER_DATA_FILE,'w') as f:
-    f.write("")
-
+USER_DATA_FILE ="users.txt"
 
 # password hashing function
 def hash_password(plain_text_password):
@@ -30,12 +26,12 @@ def register_user(username, password):
     if os.path.exists(USER_DATA_FILE):
         with open(USER_DATA_FILE, "r") as f:
             for line in f:
-                username_exist = line.strip().split(",")[0].replace("Name:","")
+                username_exist = line.strip().split("|")[0]
                 if username_exist == username:
                     return False
     hashed_password = hash_password(password)
     with open(USER_DATA_FILE, "a") as f:
-        f.write(f"Name:{username}, hashed password:{hashed_password}\n")
+        f.write(f"{username}|{hashed_password}\n")
     return True
 
 
@@ -45,7 +41,7 @@ def user_exists(username):
         return False
     with open(USER_DATA_FILE, "r") as f:
         for line in f:
-            username_exist = line.strip().split(",")[0].replace("Name:","")
+            username_exist = line.strip().split("|")[0]
             if username_exist == username:
                 return True
     return False
@@ -58,14 +54,17 @@ def login_user(username, password):
         print("You will have to register first\n")
         return False
     with open(USER_DATA_FILE, "r") as f:
-        for user in f:
-            user_exist, user_password = user.strip().split(",")
+        for line in f:
+            user_exist, user_password = line.strip().split("|")
             if user_exist == username:
                 if verify_password(password, user_password):
                     print("User found")
                     return True
                 else:
-                    print("Incorrect! Please re enter the username and password correctly.")
+                    print("Incorrect! Please re-enter password correctly.")
+                    return False
+    print("Username not found")
+    return False
 
 
 def validate_username(username):
@@ -127,12 +126,15 @@ def main():
                 print("User already exist")
 
         elif choice == '2':
-            print("User Login")
-            username = input("Enter your username: \n")
-            password = input("Enter your password ")
+            print("\n")
+            print("\n---User Login---")
+            username = input("Enter your username: \n").strip()
+            password = input("Enter your password: ").strip()
 
             if login_user(username, password):
                 print("You have successfully logged in. ")
+            else: 
+                print("Enter correct user name and password.")
 
         elif choice == '3':
             print("Thank you for using the authentication system.")
