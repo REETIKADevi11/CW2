@@ -1,30 +1,55 @@
-from auth import validate_password
-from auth import validate_username
 import streamlit as st
+from auth import validate_password, validate_username
+from stream.dashboard import Dash, metaDash
 from PIL import Image
+from auth import register_user
 
-def registration():
-  with st.form("Register: "):
-    img = Image.open('registration.png')
-    st.image(img, width = 100)
-    username = st.text_input("Enter the Username: ")
-    password = st.text_input("Enter your password: ", type = 'password')
-    confirm_password = st.text_input("Confirm password: ",type = 'password')
-    submit_button = st.form_submit_button("Register")
-    if submit_button:
-      if validate_password(password):
-        if validate_username(username):
-          if confirm_password == password:
-             st.success("You have been registered.")
-      if not username:
-        st.error("Please enter a username")
-        st.stop()
+if "registering" not in st.session_state:
+    st.session_state.registering = False 
 
-      if not confirm_password:
-        st.error("Enter the password correctly")
-        st.stop
-      
+if not st.session_state.registering:
+    with st.form("Registration form"):
+        st.header("Registration form")
+        img = Image.open("registration.png")
+        st.image(img, width = 100)
+        username = st.text_input("Enter username: ")
+        password = st.text_input("Enter password: ", type = "password")
+        confirm_password = st.text_input("Re-enter password: ", type = "password")
+        submit_button = st.form_submit_button("Submit")
+        if submit_button:
+            if not validate_password(password):
+                st.error("Enter a strong password.")
+                st.stop()
+            if not validate_username(username):
+                st.error("Enter a valid username.")
+                st.stop()
+            if confirm_password != password:
+                st.error("Password does not match.")
+                st.stop()
+            if not username:
+                st.error("Enter a username")
+                st.stop()
+            if not confirm_password:
+                st.error("confirm your password")
+                st.stop()
+            if not register_user(username, password):
+                st.error("user already exist")
+                st.stop()
     
+            else: 
+                st.success("you have been registered")
+                st.session_state.registering = True
+    
+
+if st.session_state.registering == True:
+    st.selectbox("Dashboard", Dash(), metaDash())
+
+    
+
+           
+
+
+
 
 
 
