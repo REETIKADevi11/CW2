@@ -3,8 +3,6 @@ import sqlite3
 from pathlib import Path
 from app.data.db import connect_database
 from app.data.users import get_user_by_username, insert_user
-from app.data.schema import create_user_table
-
 def register_user(username, password, role='user'):
     """Register new user with password hashing."""
     conn = connect_database()
@@ -52,7 +50,7 @@ def login_user(username, password):
     else:
         return False, "Invalid password."
 
-def migrate_users_from_file(filepath='DATA/users.txt'):
+def migrate_users_from_file(filepath= 'DATA' /'users.txt'):
     if not filepath.exists():
         print(f"File not found: {filepath} ")
         print("No users to migrate.")
