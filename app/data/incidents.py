@@ -1,6 +1,8 @@
 import pandas as pd
 from app.data.db import connect_database
 
+#Performing crud operation for incident
+# this is the insert operation
 def insert_incident(date, incident_type, severity, status, description, reported_by=None):
     """Insert new incident."""
     conn = connect_database()
@@ -15,6 +17,7 @@ def insert_incident(date, incident_type, severity, status, description, reported
     conn.close()
     return incident_id
 
+#reading the table
 def get_all_incidents():
     """Get all incidents as DataFrame."""
     conn = connect_database()
@@ -24,6 +27,7 @@ def get_all_incidents():
     )
     conn.close()
     return df
+#updating the table 
 def update_incident_status(conn, incident_id, new_status):
     conn = connect_database()
     cursor = conn.cursor()
@@ -32,6 +36,7 @@ def update_incident_status(conn, incident_id, new_status):
     conn.close()
     return cursor.rowcount
 
+#deleting columns from the table
 def delete_incident(conn, incident_id):
     conn = connect_database()
     cursor = conn.cursor()
