@@ -1,27 +1,40 @@
-
-from stream.registerPage import registration
-from stream.LoginPage import Login
 import streamlit as st
 from PIL import Image
 
-st.header("_Welcome to MULTI-DOMAIN PLATFORM_")
-img = Image.open("main.png")
-st.image(img, width = 300)
 
-def show_register_page():
-    registration()
-st.write(">_If you are a new user register yourself first._")
-if st.button("Register"):
-    show_register_page()
+
+
+st.title("MULTI-DOMAIN PLATFORM")
+col1, col2 = st.columns(2, gap = "small", vertical_alignment = "center")
+with col1:
+    img = Image.open("main.png")
+    st.image(img, width = 450)
+with col2:
+    st.write("Welcome to MULTI-DOMAIN PLATFORM")
+    
+st.write(">_If you are a new user - REGISTER_")
+st.subheader("Steps to register yourself: ")
+st.write("1. Go on the sidebar and click on register\n" 
+             "2. Enter a valid username\n" 
+             "3. Enter a strong password and confirm the password\n" 
+             "4. Click on submit\n "
+             "5. The Dashboard option will appear, then you choose which one you want to access.")
 
 st.divider()
 
-def show_log():
-    Login()
+st.write(">_If you are an existing user - LOGIN_")
+st.subheader("Steps for login: ")
+st.write("1. Go on the sidebar and select login\n"
+         "2. Enter the username name you enter for registration and the password\n"
+         "3. Click on Login")
 
-st.write(" >_If you are a registered user - login_")
-if st.button("Login"):
-    show_log()
+
+
+       
+
+
+
+
 
 
 
