@@ -1,0 +1,1 @@
+Name:alice, hashed password:$2b$12$hHoj2nJ8wKLIQYIpRHQzOOZVqfLw06VMaW2lTM23uQBUeHeZfcArW
