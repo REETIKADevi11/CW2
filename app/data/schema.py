@@ -15,7 +15,7 @@ def create_cyber_incident_table(conn):
     cursor.execute(""" CREATE TABLE IF NOT EXISTS cyber_incident (incident_id INTEGER PRIMARY KEY AUTOINCREMENT,
                    create_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                    severity TEXT NOT NULL,
-                   category TEXT ,
+                   incident_type  TEXT ,
                    status TEXT,
                    description TEXT,
                    reported_by TEXT (username of reporter),
