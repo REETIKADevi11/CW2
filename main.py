@@ -2,13 +2,15 @@ from app.data.db import connect_database
 from app.data.schema import create_cyber_incident_table,create_datasets_metadata_table,create_it_tickets_table,create_user_table
 from app.services.user_service import register_user, login_user, migrate_users_from_file
 from app.data.incidents import insert_incident, get_all_incidents
-from app.data.schema import load_csv_to_table
+from app.data.schema import load_csv_to_table, create_all_tables
 from app.data.incidents import update_incident_status
 from app.data.incidents import delete_incident
 from app.data.incidents import get_incidents_by_type_count
 from  app.data.incidents import get_high_severity_by_status
 import pandas as pd 
 from app.data.db import DB_PATH
+from app.data.db import connect_database
+
 
 
 def main():
@@ -171,6 +173,9 @@ def run_comprehensive_tests():
 
 # Run tests
 run_comprehensive_tests()
+
+
+
 
 if __name__ == "__main__":
     main()
