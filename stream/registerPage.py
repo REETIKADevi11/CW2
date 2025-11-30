@@ -3,6 +3,11 @@ from auth import validate_password, validate_username
 from stream.dashboard import Dash, metaDash, ticketDash
 from PIL import Image
 from auth import register_user
+from app.data.schema import create_user_table, create_cyber_incident_table, create_it_tickets_table
+
+create_user_table()
+create_cyber_incident_table()
+create_it_tickets_table()
 
 if "registering" not in st.session_state:
     st.session_state.registering = False 
