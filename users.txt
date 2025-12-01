@@ -1,1 +1,5 @@
 Alice|$2b$12$lptVGcgd0xQn48YRJSbPOu3edkDZwb1gHSYI/sT2mlMYc0eAitXhW
+sam|$2b$12$Bp/wmFPHt47NMt030Yxq1OYpagfomDKnIU9XoQkZZYEnFnSHe0kCG
+samy|$2b$12$uMcJvnJWAlR.ts54NKvOTe4oNYy7qhXLe5ij4aPVBCCiqsdFnhKkO
+sami|$2b$12$mDi.aYlI7yEGAT0AYIO29uK5u/ZxiZIGR0nAY.0k2jXLsZahnz2a2
+nan|$2b$12$5WlhsBUwvp5VMSzKUVv54OCP3HfvSCW2nj7eD/dOBOJ6aLoZmaCfa
