@@ -1,17 +1,17 @@
 import pandas as pd
 from app.data.db import connect_database
-
-#Performing crud operation for incident
+from app.data.schema import create_cyber_incident_table
 # this is the insert operation
-def insert_incident(date, incident_type, severity, status, description, reported_by=None):
+def insert_incident(category, severity, status, description):
     """Insert new incident."""
-    conn = connect_database()
+    create_cyber_incident_table()
+    conn = connect_database("DATA/intelligences_platform.db")
     cursor = conn.cursor()
     cursor.execute("""
         INSERT INTO cyber_incidents 
-        (date, incident_type, severity, status, description, reported_by)
-        VALUES (?, ?, ?, ?, ?, ?)
-    """, (date, incident_type, severity, status, description, reported_by))
+        (category, severity, status, description)
+        VALUES (?, ?, ?, ?)
+    """, ( category, severity, status, description))
     conn.commit()
     incident_id = cursor.lastrowid
     conn.close()
@@ -19,28 +19,34 @@ def insert_incident(date, incident_type, severity, status, description, reported
 
 #reading the table
 def get_all_incidents():
+    create_cyber_incident_table()
     """Get all incidents as DataFrame."""
     conn = connect_database()
     df = pd.read_sql_query(
-        "SELECT * FROM cyber_incidents ORDER BY id DESC",
+        "SELECT * FROM cyber_incidents ORDER BY incident_id DESC",
         conn
+       
+
     )
+    print(df.to_string())
     conn.close()
     return df
 #updating the table 
-def update_incident_status(conn, incident_id, new_status):
+def update_incident_status( incident_id, new_status):
+    create_cyber_incident_table()
     conn = connect_database()
     cursor = conn.cursor()
-    cursor.execute(""" UPDATE cyber_incidents SET status = ? WHERE id = ?""", (new_status, incident_id))
+    cursor.execute(""" UPDATE cyber_incidents SET status = ? WHERE incident_id = ?""", (new_status, incident_id))
     conn.commit()
     conn.close()
     return cursor.rowcount
 
-#deleting columns from the table
-def delete_incident(conn, incident_id):
+#deleting data from the table
+def delete_incident(incident_id):
+    create_cyber_incident_table()
     conn = connect_database()
     cursor = conn.cursor()
-    cursor.execute(""" DELETE FROM cyber_incidents WHERE id = ?"""(incident_id))
+    cursor.execute("DELETE FROM cyber_incidents WHERE incident_id = ?",(int(incident_id),))
     conn.commit()
     conn.close()
     return cursor.rowcount
@@ -51,9 +57,9 @@ def get_incidents_by_type_count(conn):
     Uses: SELECT, FROM, GROUP BY, ORDER BY
     """
     query = """
-    SELECT incident_type, COUNT(*) as count
+    SELECT category, COUNT(*) as count
     FROM cyber_incidents
-    GROUP BY incident_type
+    GROUP BY category
     ORDER BY count DESC
     """
     df = pd.read_sql_query(query, conn)
@@ -80,9 +86,9 @@ def get_incident_types_with_many_cases(conn, min_count=5):
     Uses: SELECT, FROM, GROUP BY, HAVING, ORDER BY
     """
     query = """
-    SELECT incident_type, COUNT(*) as count
+    SELECT category, COUNT(*) as count
     FROM cyber_incidents
-    GROUP BY incident_type
+    GROUP BY category
     HAVING COUNT(*) > ?
     ORDER BY count DESC
     """
