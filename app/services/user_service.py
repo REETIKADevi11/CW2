@@ -50,7 +50,7 @@ def login_user(username, password):
     else:
         return False, "Invalid password."
 
-def migrate_users_from_file(filepath= 'DATA' /'users.txt'):
+def migrate_users_from_file(filepath= 'DATA/users.txt'):
     if not filepath.exists():
         print(f"File not found: {filepath} ")
         print("No users to migrate.")
