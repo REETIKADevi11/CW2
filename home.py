@@ -21,7 +21,7 @@ login_page = st.Page(page = "stream/LoginPage.py",
                      title = "Login")
 
 api_page = st.Page(page = "stream/gemini_api_streamlit.py",
-                   title = "AI assistant")
+                   title = "AI Assistant")
 
 
 
