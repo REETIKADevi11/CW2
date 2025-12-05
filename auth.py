@@ -1,6 +1,7 @@
 import bcrypt
 import os
 import re
+import string 
 
 USER_DATA_FILE ="users.txt"
 
@@ -66,7 +67,7 @@ def login_user(username, password):
     print("Username not found")
     return False
 
-
+#this function will validate username, it ensure that user enter an accurate username
 def validate_username(username):
     if re.search(r"\s", username):
         print("Username should not contain space.")
@@ -74,17 +75,20 @@ def validate_username(username):
     else:
         return True
 
-
+#Validating password, password should contain uppercase, lowercase, digits and special character
 def validate_password(password):
     lowerCase = re.search("[a-z]", password)
     upperCase = re.search("[A-Z]", password)
     digit = re.search(r"\d", password)
+    symbol = re.search(f"[{re.escape(string.punctuation)}]", password)
+    length = len(password) > 8
 
-    if all([lowerCase, upperCase, digit]):
+
+    if all([lowerCase, upperCase, digit, symbol, length ]):
         print("Strong password")
         return True
     else:
-        print("password should contain: LowerCase,UpperCase and Digit.\n")
+        print("password should contain: LowerCase,UpperCase, Digits, symbols and contain more than 8S characters\n")
         return False
 
 
@@ -108,7 +112,7 @@ def main():
 
             valid_username = validate_username(username)
             if valid_username:
-                print("Valid")
+                print("Valid username")
             else:
                 print("Invalid")
                 continue
