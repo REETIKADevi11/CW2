@@ -14,7 +14,7 @@ if not st.session_state.login:
         st.image(img, width = 100)
         username = st.text_input("Enter username: ")
         password = st.text_input("Enter password: ", type = "password")
-        submit_button = st.form_submit_button("Submit")
+        submit_button = st.form_submit_button("Submit", type="primary")
         if submit_button:
             if not login_user(username, password):
                 st.error("Username does not exist.")
@@ -27,12 +27,12 @@ if not st.session_state.login:
                 st.success("you have succesfully login")
                 st.session_state.login = True
 if st.session_state.login == True:
-   option = ["Cyber Dashboard","Dataset dashboard", "IT ticket"]
+   option = ["Cyber Dashboard", "IT ticket", "Dataset dashboard"]
    st.header ("Select dashboard: ")
    dash_select = st.selectbox("Which dashboard would you like to access", options = option)
    if dash_select == "Cyber Dashboard":
        Dash()
-   elif dash_select == "Dataset dashboard":
-       metaDash()
    elif dash_select == "IT ticket":
        ticketDash()
+   elif dash_select == "Dataset dashboard":
+       metaDash()
