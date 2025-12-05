@@ -11,6 +11,7 @@ with col1:
     st.image(img, width = 450)
 with col2:
     st.write("Welcome to MULTI-DOMAIN PLATFORM")
+    st.write("This platform allow you to analyse the data through chart")
     
 st.write(">_If you are a new user - REGISTER_")
 st.subheader("Steps to register yourself: ")
@@ -19,6 +20,7 @@ st.write("1. Go on the sidebar and click on register\n"
              "3. Enter a strong password and confirm the password\n" 
              "4. Click on submit\n "
              "5. The Dashboard option will appear, then you choose which one you want to access.")
+
 
 st.divider()
 
