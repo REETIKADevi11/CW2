@@ -2,7 +2,7 @@ from app.data.db import connect_database
 from app.data.schema import create_cyber_incident_table,create_datasets_metadata_table,create_it_tickets_table,create_user_table
 from app.services.user_service import register_user, login_user, migrate_users_from_file
 from app.data.incidents import insert_incident, get_all_incidents
-from app.data.schema import load_csv_to_table, create_all_tables
+from app.data.schema import load_csv_to_table
 from app.data.incidents import update_incident_status
 from app.data.incidents import delete_incident
 from app.data.incidents import get_incidents_by_type_count
@@ -20,9 +20,9 @@ def main():
     
     # 1. Setup database
     conn = connect_database()
-    create_cyber_incident_table(conn)
-    create_datasets_metadata_table(conn), create_it_tickets_table(conn),
-    create_user_table(conn)
+    create_cyber_incident_table()
+    create_datasets_metadata_table(), create_it_tickets_table(),
+    create_user_table()
     conn.close()
     
     # 2. Migrate users
@@ -104,8 +104,7 @@ def setup_database_complete():
     print(f"\n Database location: {DB_PATH.resolve()}")
     print("\nYou're ready for Week 9 (Streamlit web interface)!")
 
-# Run the complete setup
-setup_database_complete()
+
 
 def run_comprehensive_tests():
     """
@@ -171,8 +170,7 @@ def run_comprehensive_tests():
     print("ALL TESTS PASSED!")
     print("="*60)
 
-# Run tests
-run_comprehensive_tests()
+
 
 
 
