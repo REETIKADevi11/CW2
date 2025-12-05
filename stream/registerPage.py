@@ -3,11 +3,12 @@ from auth import validate_password, validate_username
 from stream.dashboard import Dash, metaDash, ticketDash
 from PIL import Image
 from auth import register_user
-from app.data.schema import create_user_table, create_cyber_incident_table, create_it_tickets_table
+from app.data.schema import create_user_table, create_cyber_incident_table, create_it_tickets_table, create_datasets_metadata_table
 
 create_user_table()
 create_cyber_incident_table()
 create_it_tickets_table()
+create_datasets_metadata_table()
 
 if "registering" not in st.session_state:
     st.session_state.registering = False 
@@ -20,10 +21,10 @@ if not st.session_state.registering:
         username = st.text_input("Enter username: ")
         password = st.text_input("Enter password: ", type = "password")
         confirm_password = st.text_input("Re-enter password: ", type = "password")
-        submit_button = st.form_submit_button("Submit")
+        submit_button = st.form_submit_button("Submit", type="primary")
         if submit_button:
             if not validate_password(password):
-                st.error("Enter a strong password.")
+                st.error("Password should contain: lowerCase, Uppercase, digits, symbols and more than 8 character")
                 st.stop()
             if not validate_username(username):
                 st.error("Enter a valid username.")
@@ -47,15 +48,15 @@ if not st.session_state.registering:
     
 
 if st.session_state.registering == True:
-    option = ["Cyber Dashboard","Dataset dashboard", "IT ticket"]
+    option = ["Cyber Dashboard", "IT ticket", "Dataset dashboard"]
     st.header ("Select dashboard: ")
     dash_select = st.selectbox("Which dashboard would you like to access", options = option)
     if dash_select == "Cyber Dashboard":
        Dash()
-    elif dash_select == "Dataset dashboard":
-       metaDash()
     elif dash_select == "IT ticket":
        ticketDash()
+    elif dash_select == "Dataset dashboard":
+       metaDash()
 
     
 
