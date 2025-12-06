@@ -84,15 +84,15 @@ if __name__ == "__main__":
     conn = sqlite3.connect("DATA/intelligences_platform.db")
     
 
-    create_cyber_incident_table()
-    create_it_tickets_table()
-    create_datasets_metadata_table()
 
     # Call the function with your CSV file and table name
     rows = load_csv_to_table(conn, "DATA/cyber_incidents.csv", "cyber_incidents")
     rows_it = load_csv_to_table(conn, "DATA/it_tickets.csv", "it_ticket")
     rows_meta = load_csv_to_table(conn, "DATA/datasets_metadata.csv", "dataset_metadata")
 
+    create_cyber_incident_table()
+    create_it_tickets_table()
+    create_datasets_metadata_table()
 
     cursor = conn.cursor()
     cursor.execute("SELECT COUNT(*) FROM cyber_incidents;")
