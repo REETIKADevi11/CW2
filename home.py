@@ -24,6 +24,6 @@ api_page = st.Page(page = "stream/gemini_api_streamlit.py",
                    title = "AI Assistant")
 
 
-
+#implementation of sidebar to access the pages 
 pg = st.navigation({"Info":[home_page, register_page, login_page, api_page]})
 pg.run()
