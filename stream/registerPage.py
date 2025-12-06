@@ -9,7 +9,7 @@ create_user_table()
 create_cyber_incident_table()
 create_it_tickets_table()
 create_datasets_metadata_table()
-
+#this is the register page where user will register themselves
 if "registering" not in st.session_state:
     st.session_state.registering = False 
 
@@ -17,7 +17,9 @@ if not st.session_state.registering:
     with st.form("Registration form"):
         st.header("Registration form")
         img = Image.open("registration.png")
-        st.image(img, width = 100)
+        col1 , col2, col3 = st.columns([1, 2, 1])
+        with col2:
+            st.image(img, width = 600)
         username = st.text_input("Enter username: ")
         password = st.text_input("Enter password: ", type = "password")
         confirm_password = st.text_input("Re-enter password: ", type = "password")
@@ -46,7 +48,7 @@ if not st.session_state.registering:
                 st.success("you have been registered")
                 st.session_state.registering = True
     
-
+#The selection box will allow user to select which ever domain they wnat to access after registrating
 if st.session_state.registering == True:
     option = ["Cyber Dashboard", "IT ticket", "Dataset dashboard"]
     st.header ("Select dashboard: ")
