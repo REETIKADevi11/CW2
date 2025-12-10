@@ -2,16 +2,16 @@ import pandas as pd
 from app.data.db import connect_database
 from app.data.schema import create_cyber_incident_table
 # this is the insert operation
-def insert_incident(category, severity, status, description):
+def insert_incident(incident_id, category, severity, status, description):
     """Insert new incident."""
     create_cyber_incident_table()
     conn = connect_database("DATA/intelligences_platform.db")
     cursor = conn.cursor()
     cursor.execute("""
         INSERT INTO cyber_incidents 
-        (category, severity, status, description)
-        VALUES (?, ?, ?, ?)
-    """, ( category, severity, status, description))
+        (incident_id ,category, severity, status, description)
+        VALUES (?,?, ?, ?, ?)
+    """, ( incident_id, category, severity, status, description))
     conn.commit()
     incident_id = cursor.lastrowid
     conn.close()
@@ -32,11 +32,12 @@ def get_all_incidents():
     conn.close()
     return df
 #updating the table 
-def update_incident_status( incident_id, new_status):
+def update_incident_status( incident_id, new_status, description):
     create_cyber_incident_table()
     conn = connect_database()
     cursor = conn.cursor()
-    cursor.execute(""" UPDATE cyber_incidents SET status = ? WHERE incident_id = ?""", (new_status, incident_id))
+    # the update will be for the status, description and incident_id field
+    cursor.execute(""" UPDATE cyber_incidents SET status = ?, description = ? WHERE incident_id = ?""", (new_status, description, incident_id))
     conn.commit()
     conn.close()
     return cursor.rowcount
@@ -46,7 +47,8 @@ def delete_incident(incident_id):
     create_cyber_incident_table()
     conn = connect_database()
     cursor = conn.cursor()
-    cursor.execute("DELETE FROM cyber_incidents WHERE incident_id = ?",(int(incident_id),))
+    #the data will be deleted by there incident id 
+    cursor.execute("DELETE FROM cyber_incidents WHERE incident_id = ? ",(int(incident_id),))
     conn.commit()
     conn.close()
     return cursor.rowcount
