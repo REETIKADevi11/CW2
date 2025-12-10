@@ -33,20 +33,22 @@ def get_all_ticket():
     return df
 
 #from CRUD operation here is the update part 
-def update_ticket_status(ticket_id, new_status):
+def update_ticket_status(ticket_id, new_status, description, created_at, resolution_time_hours):
     create_it_tickets_table()
     conn = connect_database()
     cursor = conn.cursor()
-    cursor.execute("""UPDATE it_ticket SET status = ? WHERE ticket_id = ?""", (new_status, ticket_id))
+    cursor.execute("""UPDATE it_ticket SET status = ?, description = ?, created_at = ?, resolution_time_hours = ? WHERE ticket_id = ?""", (new_status,description, created_at, resolution_time_hours, ticket_id))
     conn.commit()
+    update = cursor.rowcount
     conn.close()
-    return cursor.rowcount
+    return update
 
 #from CRUD operation here is the delete part 
 def delete_ticket(ticket_id):
     conn = connect_database("DATA/intelligences_platform.db")
     cursor = conn.cursor()
-    cursor.execute("DELETE FROM it_ticket WHERE ticket_id = ?", (int(ticket_id),))
+    cursor.execute("""DELETE FROM it_ticket WHERE ticket_id = ?""", (int(ticket_id),))
     conn.commit()
+    deleted = cursor.rowcount
     conn.close()
-    return cursor.rowcount
+    return deleted
