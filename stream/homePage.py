@@ -11,7 +11,7 @@ with col1:
     st.image(img, width = 450)
 with col2:
     st.write("Welcome to MULTI-DOMAIN PLATFORM")
-    st.write("This platform allow you to analyse the data through chart")
+    st.write("This platform allow you to analyse the data through charts")
     
 st.write(">_If you are a new user - REGISTER_")
 st.subheader("Steps to register yourself: ")
@@ -19,7 +19,8 @@ st.write("1. Go on the sidebar and click on register\n"
              "2. Enter a valid username\n" 
              "3. Enter a strong password and confirm the password\n" 
              "4. Click on submit\n "
-             "5. The Dashboard option will appear, then you choose which one you want to access.")
+             "5. The Dashboard option will appear, then you choose which one you want to access.\n"
+             "4. After user register they can access the AI assistant on the Side Bar")
 
 
 st.divider()
@@ -28,7 +29,8 @@ st.write(">_If you are an existing user - LOGIN_")
 st.subheader("Steps for login: ")
 st.write("1. Go on the sidebar and select login\n"
          "2. Enter the username name you enter for registration and the password\n"
-         "3. Click on Login")
+         "3. Click on Login\n"
+         "4.After user login they can access the AI assistant on the Side Bar")
 
 
 
