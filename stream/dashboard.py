@@ -47,7 +47,7 @@ def Dash():
         st.dataframe(df_incidents)
 
     # implementation of filters, this allow user to analyse the table 
-        st.markdown("## Modified table ##")
+       
         col1, col2 = st.columns(2)
         with col1:
             st.metric("High", df_incidents[df_incidents["severity"]=="High"].shape[0])
@@ -99,6 +99,7 @@ def Dash():
                insert = insert_incident(incident_id, category, severity,status, description )
                if insert > 0:
                     st.success(" incident update")
+                    st.rerun()
                else:
                     st.warning("incident id not found")
                     st.rerun()
@@ -120,6 +121,7 @@ def Dash():
                deleted = delete_incident(int(incident_id))
                if deleted > 0 : 
                     st.success(" incident deleted")
+                    st.rerun()
                else:
                     st.warning("incident id not found")
                     st.rerun()
@@ -134,6 +136,7 @@ def Dash():
             description = st.text_input("Description: ")
             submitted = st.form_submit_button("submit", type="primary")
 
+       # exception handling will prevent ValueError from crashing the code 
         if submitted:
             try:
                incident_id = int(incident_id)
@@ -142,6 +145,7 @@ def Dash():
                update = update_incident_status( incident_id, new_status, description)
                if update > 0:
                     st.success(" incident update")
+                    st.rerun()
                else:
                     st.warning("incident id not found")
                     st.rerun()
@@ -216,8 +220,6 @@ def metaDash():
         st.plotly_chart(fig, width='stretch')
 
 
-
-        
     
     # this is a form for inserting new data
     st.markdown("## Insert Incident ##")
@@ -338,7 +340,7 @@ def ticketDash():
           st.success(f"Ticket {ticket_id} inserted successfully!")
           st.rerun()
 
-
+ # exception handling will prevent ValueError from crashing the code 
     st.markdown("## Delete Incident ##")
     with st.form ("Delete incident"):
           ticket_id = st.text_input("Incident ID to delete")
@@ -349,6 +351,7 @@ def ticketDash():
                deleted = delete_ticket(int(ticket_id))
                if deleted > 0:
                     st.success("Ticket problem deleted")
+                    st.rerun()
                else:
                     st.warning("ticket id not found")
                     st.rerun()
