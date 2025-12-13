@@ -12,6 +12,8 @@ create_cyber_incident_table()
 create_it_tickets_table()
 create_datasets_metadata_table()
 
+#plotly has been used in each function to create colourful charts
+# the cyber security domain is being created in streamlit
 def Dash():
         st.set_page_config(page_title = "Cyber Threat dashboard", page_icon=":bar_chart:",layout="wide")
         col1, col2, col3 = st.columns([4,2,4])
@@ -34,8 +36,8 @@ def Dash():
         df = get_all_incidents()
         st.dataframe(df)
        
-        st.sidebar.header("Filters")
-        category = st.sidebar.multiselect("Select the category:",
+        
+        category = st.multiselect("Filter the table:",
                                           options= df["category"].unique(),
                                           default= df["category"].unique())
         df_incidents = df[df["category"].isin(category)]
@@ -105,7 +107,7 @@ def Dash():
                st.error("Positive integer id should be a value")
             
             
-
+    
         st.markdown("## Delete Incident ##")
         with st.form ("Delete incident"):
             incident_id = st.text_input("Incident ID to delete")
@@ -268,7 +270,7 @@ def ticketDash():
            st.success("You have been logged out.")
            st.rerun()
     st.divider()
-
+     #inserting image in the domain 
     st.subheader("_IT Ticket Table_")
     img = Image.open("ticket.png")
     col1 , col2, col3 = st.columns([1, 2, 1])
@@ -282,8 +284,8 @@ def ticketDash():
     st.dataframe(df)
    
       #implementation of filters      
-    st.sidebar.header("Filter created table: ")
-    assigned_to = st.sidebar.multiselect("Select the department",
+    
+    assigned_to = st.multiselect("Select the department",
         options = df["assigned_to"].unique(),
         default = df["assigned_to"].unique())
     df_ticket =df.query("assigned_to == @assigned_to")
@@ -307,13 +309,13 @@ def ticketDash():
     priority_counts.columns = ["assigned_to", "count"]
     col1 , col2, col3 = st.columns([0.3, 2, 0.3])
     with col2:
-       st.title(" Pie chart - IT tickets problem")
+       st.title(" Pie chart - IT tickets problem")     #implementation of pie chart 
        fig = px.pie(priority_counts,
              names="assigned_to",
              values="count",
              color_discrete_sequence=["#de0202", "#de7c7c", "#5e2828"])
        st.plotly_chart(fig, width ='stretch')
-       st.title(" :bar_chart: Bar chart")
+       st.title(" :bar_chart: Bar chart")   #implementation of bar chart 
        fig = px.bar(priority_counts,
              x="assigned_to",
              y="count",
@@ -321,7 +323,7 @@ def ticketDash():
              color_discrete_sequence=["#5c32a8", "#8132a8", "#a832a0"])
        st.plotly_chart(fig, width='stretch')
         
-
+     # implementing crud operation for IT Domain
     st.markdown("## Add IT Incident ##")
     with st.form ("Add new ticket problem"):
           description = st.text_input("Enter new ticket problem ")
