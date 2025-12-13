@@ -23,7 +23,9 @@ login_page = st.Page(page = "stream/LoginPage.py",
 api_page = st.Page(page = "stream/gemini_api_streamlit.py",
                    title = "AI Assistant")
 
+chat_page = st.Page(page = "stream/chatbox.py",
+                    title = "ChatBox")
 
 #implementation of sidebar to access the pages 
-pg = st.navigation({"Info":[home_page, register_page, login_page, api_page]})
+pg = st.navigation({"Info":[home_page, register_page, login_page, api_page, chat_page]})
 pg.run()
