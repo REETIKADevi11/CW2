@@ -19,7 +19,7 @@ if not st.session_state.login:
         submit_button = st.form_submit_button("Submit", type="primary")
         if submit_button:
             if not login_user(username, password):
-                st.error("Username does not exist.")
+                st.error("Username does not exist or your password is incorrect.")
                 st.stop()
             if not username:
                 st.error("Enter a username")
