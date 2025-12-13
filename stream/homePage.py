@@ -19,8 +19,7 @@ st.write("1. Go on the sidebar and click on register\n"
              "2. Enter a valid username\n" 
              "3. Enter a strong password and confirm the password\n" 
              "4. Click on submit\n "
-             "5. The Dashboard option will appear, then you choose which one you want to access.\n"
-             "4. After user register they can access the AI assistant on the Side Bar")
+             "5. The Dashboard option will appear, then you choose which one you want to access.")
 
 
 st.divider()
@@ -30,7 +29,7 @@ st.subheader("Steps for login: ")
 st.write("1. Go on the sidebar and select login\n"
          "2. Enter the username name you enter for registration and the password\n"
          "3. Click on Login\n"
-         "4.After user login they can access the AI assistant on the Side Bar")
+         "4.After user login they can access the AI assistant on the Side Bar and the chatbox")
 
 
 
